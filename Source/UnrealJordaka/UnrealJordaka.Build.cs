@@ -8,6 +8,24 @@ public class UnrealJordaka : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay", "NavigationSystem", "AIModule", "Niagara" });
+		PublicIncludePaths.AddRange(new string[]
+		{
+			"UnrealJordaka"
+		});
+
+        PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"HeadMountedDisplay",
+			"NavigationSystem",
+			"AIModule",
+			"Niagara",
+            "GameplayAbilities",
+            "GameplayTags",
+			"GameplayTasks"
+		});
     }
 }

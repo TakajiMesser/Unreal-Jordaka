@@ -1,8 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "UnrealJordakaGameMode.h"
-#include "UnrealJordakaPlayerController.h"
-#include "UnrealJordakaCharacter.h"
+#include "Player/UnrealJordakaPlayerController.h"
+#include "Characters/UnrealJordakaCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AUnrealJordakaGameMode::AUnrealJordakaGameMode()

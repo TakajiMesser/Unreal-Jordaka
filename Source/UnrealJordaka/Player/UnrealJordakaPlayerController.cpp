@@ -5,7 +5,7 @@
 #include "Blueprint/AIBlueprintHelperLibrary.h"
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
-#include "UnrealJordakaCharacter.h"
+#include "Characters/UnrealJordakaCharacter.h"
 #include "Engine/World.h"
 
 AUnrealJordakaPlayerController::AUnrealJordakaPlayerController()
@@ -27,6 +27,22 @@ void AUnrealJordakaPlayerController::PlayerTick(float DeltaTime)
 
 		FVector MoveDirection = (FVector(UpValue, RightValue, 0)).GetSafeNormal();
 		MyPawn->AddMovementInput(MoveDirection, GetMovementScale(), true);
+
+		FHitResult Hit;
+		if (GetHitResultUnderCursor(ECC_WorldStatic, false, Hit))
+		{
+			FVector Location = MyPawn->GetActorLocation();
+
+			FVector2f MousePosition(Hit.Location.X, Hit.Location.Y);
+			FVector2f ActorPosition(Location.X, Location.Y);
+
+			FVector2f TurnDirection = (MousePosition - ActorPosition).GetSafeNormal();
+			float Yaw = atan2f(TurnDirection.Y, TurnDirection.X);
+
+			FRotator Rotation(0.0, FMath::RadiansToDegrees(Yaw), 0.0);
+			MyPawn->SetActorRotation(Rotation);
+			//MyPawn->AddControllerYawInput(FMath::RadiansToDegrees(Yaw));
+		}
 	}
 
 	/*if (bInputPressed)
