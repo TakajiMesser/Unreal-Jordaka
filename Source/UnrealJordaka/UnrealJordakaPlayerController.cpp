@@ -12,11 +12,8 @@ AUnrealJordakaPlayerController::AUnrealJordakaPlayerController()
 {
 	bShowMouseCursor = true;
 	DefaultMouseCursor = EMouseCursor::Default;
-	bIsUpPressed = false;
-	bIsDownPressed = false;
-	bIsRightPressed = false;
-	bIsLeftPressed = false;
-	bIsRunPressed = false;
+	bIsSprintPressed = false;
+	bIsSneakPressed = false;
 }
 
 void AUnrealJordakaPlayerController::PlayerTick(float DeltaTime)
@@ -28,46 +25,8 @@ void AUnrealJordakaPlayerController::PlayerTick(float DeltaTime)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Direction = <%f, %f, 0>"), XValue, YValue);
 
-		/*bool bIsUpPressed;
-		bool bIsDownPressed;
-		bool bIsRightPressed;
-		bool bIsLeftPressed;*/
-
-		float XValue = 0.f;
-		if (bIsUpPressed && !bIsDownPressed)
-		{
-			XValue = 1.f;
-		}
-		else if (!bIsUpPressed && bIsDownPressed)
-		{
-			XValue = -1.f;
-		}
-
-		float YValue = 0.f;
-		if (bIsRightPressed && !bIsLeftPressed)
-		{
-			YValue = 1.f;
-		}
-		else if (!bIsRightPressed && bIsLeftPressed)
-		{
-			YValue = -1.f;
-		}
-
-		UPawnMovementComponent* const MovementComponent = MyPawn->GetMovementComponent();
-		if (MovementComponent)
-		{
-			MovementComponent
-		}
-
-		FVector Direction = (/*MyPawn->GetActorLocation() + */FVector(XValue, YValue, 0)).GetSafeNormal();
-
-		float ScaleValue = 1.f;
-		if (bIsRunPressed)
-		{
-			ScaleValue = 100.f;
-		}
-
-		MyPawn->AddMovementInput(Direction, 1.f, true);
+		FVector MoveDirection = (FVector(UpValue, RightValue, 0)).GetSafeNormal();
+		MyPawn->AddMovementInput(MoveDirection, GetMovementScale(), true);
 	}
 
 	/*if (bInputPressed)
@@ -101,6 +60,22 @@ void AUnrealJordakaPlayerController::PlayerTick(float DeltaTime)
 	}*/
 }
 
+float AUnrealJordakaPlayerController::GetMovementScale()
+{
+	if (bIsSprintPressed)
+	{
+		return 1.f;
+	}
+	else if (bIsSneakPressed)
+	{
+		return 0.25f;
+	}
+	else
+	{
+		return 0.5f;
+	}
+}
+
 void AUnrealJordakaPlayerController::SetupInputComponent()
 {
 	// set up gameplay key bindings
@@ -109,21 +84,12 @@ void AUnrealJordakaPlayerController::SetupInputComponent()
 	InputComponent->BindAction("SetDestination", IE_Pressed, this, &AUnrealJordakaPlayerController::OnSetDestinationPressed);
 	InputComponent->BindAction("SetDestination", IE_Released, this, &AUnrealJordakaPlayerController::OnSetDestinationReleased);
 
-	// Set up WASD controls
-	//InputComponent->BindAxis("MoveX", this, &AUnrealJordakaPlayerController::OnMoveX);
-	//InputComponent->BindAxis("MoveY", this, &AUnrealJordakaPlayerController::OnMoveY);
-
-	InputComponent->BindAction("MoveUp", IE_Pressed, this, &AUnrealJordakaPlayerController::OnMoveUpPressed);
-	InputComponent->BindAction("MoveDown", IE_Pressed, this, &AUnrealJordakaPlayerController::OnMoveDownPressed);
-	InputComponent->BindAction("MoveRight", IE_Pressed, this, &AUnrealJordakaPlayerController::OnMoveRightPressed);
-	InputComponent->BindAction("MoveLeft", IE_Pressed, this, &AUnrealJordakaPlayerController::OnMoveLeftPressed);
-	InputComponent->BindAction("Run", IE_Pressed, this, &AUnrealJordakaPlayerController::OnRunPressed);
-
-	InputComponent->BindAction("MoveUp", IE_Released, this, &AUnrealJordakaPlayerController::OnMoveUpReleased);
-	InputComponent->BindAction("MoveDown", IE_Released, this, &AUnrealJordakaPlayerController::OnMoveDownReleased);
-	InputComponent->BindAction("MoveRight", IE_Released, this, &AUnrealJordakaPlayerController::OnMoveRightReleased);
-	InputComponent->BindAction("MoveLeft", IE_Released, this, &AUnrealJordakaPlayerController::OnMoveLeftReleased);
-	InputComponent->BindAction("Run", IE_Released, this, &AUnrealJordakaPlayerController::OnRunReleased);
+	InputComponent->BindAxis("MoveUp", this, &AUnrealJordakaPlayerController::OnMoveUp);
+	InputComponent->BindAxis("MoveRight", this, &AUnrealJordakaPlayerController::OnMoveRight);
+	InputComponent->BindAction("Sprint", IE_Pressed, this, &AUnrealJordakaPlayerController::OnSprintPressed);
+	InputComponent->BindAction("Sprint", IE_Released, this, &AUnrealJordakaPlayerController::OnSprintReleased);
+	InputComponent->BindAction("Sneak", IE_Pressed, this, &AUnrealJordakaPlayerController::OnSneakPressed);
+	InputComponent->BindAction("Sneak", IE_Released, this, &AUnrealJordakaPlayerController::OnSneakReleased);
 
 	// support touch devices 
 	InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AUnrealJordakaPlayerController::OnTouchPressed);
@@ -158,74 +124,34 @@ void AUnrealJordakaPlayerController::OnSetDestinationReleased()
 	}
 }
 
-/*void AUnrealJordakaPlayerController::OnMoveX(float Value)
+void AUnrealJordakaPlayerController::OnMoveUp(float Value)
 {
-	if (Value > 0.f)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("OnMoveX(%f)"), Value);
-	}
-	
-	XValue = Value;
+	UpValue = Value;
 }
 
-void AUnrealJordakaPlayerController::OnMoveY(float Value)
+void AUnrealJordakaPlayerController::OnMoveRight(float Value)
 {
-	if (Value > 0.f)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("OnMoveY(%f)"), Value);
-	}
-
-	YValue = Value;
-}*/
-
-void AUnrealJordakaPlayerController::OnMoveUpPressed()
-{
-	bIsUpPressed = true;
+	RightValue = Value;
 }
 
-void AUnrealJordakaPlayerController::OnMoveDownPressed()
+void AUnrealJordakaPlayerController::OnSprintPressed()
 {
-	bIsDownPressed = true;
+	bIsSprintPressed = true;
 }
 
-void AUnrealJordakaPlayerController::OnMoveRightPressed()
+void AUnrealJordakaPlayerController::OnSprintReleased()
 {
-	bIsRightPressed = true;
+	bIsSprintPressed = false;
 }
 
-void AUnrealJordakaPlayerController::OnMoveLeftPressed()
+void AUnrealJordakaPlayerController::OnSneakPressed()
 {
-	bIsLeftPressed = true;
+	bIsSneakPressed = true;
 }
 
-void AUnrealJordakaPlayerController::OnRunPressed()
+void AUnrealJordakaPlayerController::OnSneakReleased()
 {
-	bIsRunPressed = true;
-}
-
-void AUnrealJordakaPlayerController::OnMoveUpReleased()
-{
-	bIsUpPressed = false;
-}
-
-void AUnrealJordakaPlayerController::OnMoveDownReleased()
-{
-	bIsDownPressed = false;
-}
-
-void AUnrealJordakaPlayerController::OnMoveRightReleased()
-{
-	bIsRightPressed = false;
-}
-
-void AUnrealJordakaPlayerController::OnMoveLeftReleased()
-{
-	bIsLeftPressed = false;
-}
-
-void AUnrealJordakaPlayerController::OnRunReleased()
-{
-	bIsRunPressed = false;
+	bIsSneakPressed = false;
 }
 
 void AUnrealJordakaPlayerController::OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location)

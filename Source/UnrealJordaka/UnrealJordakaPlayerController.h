@@ -42,30 +42,26 @@ protected:
 	//void OnMoveX(float Value);
 	//void OnMoveY(float Value);
 
-	void OnMoveUpPressed();
-	void OnMoveDownPressed();
-	void OnMoveRightPressed();
-	void OnMoveLeftPressed();
-	void OnRunPressed();
-
-	void OnMoveUpReleased();
-	void OnMoveDownReleased();
-	void OnMoveRightReleased();
-	void OnMoveLeftReleased();
-	void OnRunReleased();
+	void OnMoveUp(float Value);
+	void OnMoveRight(float Value);
+	void OnSprintPressed();
+	void OnSprintReleased();
+	void OnSneakPressed();
+	void OnSneakReleased();
 
 	void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
 	void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
 
 private:
+	float GetMovementScale();
+
 	bool bInputPressed; // Input is bring pressed
 	bool bIsTouch; // Is it a touch device
-	bool bIsUpPressed;
-	bool bIsDownPressed;
-	bool bIsRightPressed;
-	bool bIsLeftPressed;
-	bool bIsRunPressed;
+	bool bIsSprintPressed;
+	bool bIsSneakPressed;
 	float FollowTime; // For how long it has been pressed
+	float UpValue;
+	float RightValue;
 	
 };
 
