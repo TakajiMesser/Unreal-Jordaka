@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 public class UnrealJordakaEditorTarget : TargetRules
 {
-	public UnrealJordakaEditorTarget(TargetInfo Target) : base(Target)
-	{
-		Type = TargetType.Editor;
-		DefaultBuildSettings = BuildSettingsVersion.V2;
-		ExtraModuleNames.Add("UnrealJordaka");
-	}
+    public UnrealJordakaEditorTarget(TargetInfo Target) : base(Target)
+    {
+        Type = TargetType.Editor;
+        DefaultBuildSettings = BuildSettingsVersion.V2;
+        ExtraModuleNames.Add("UnrealJordaka");
+    }
 }

@@ -9,10 +9,10 @@
 UCLASS(minimalapi)
 class AUnrealJordakaGameMode : public AGameModeBase
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	AUnrealJordakaGameMode();
+    AUnrealJordakaGameMode();
 };
 
 
