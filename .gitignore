@@ -85,7 +85,6 @@ __pycache__/
 # For now, let's ignore most subdirectories except for the C++ codebase
 # We can add those subdirectories back in as we need
 Binaries/
-Content/
 DerivedDataCache/
 Intermediate/
 Saved/
