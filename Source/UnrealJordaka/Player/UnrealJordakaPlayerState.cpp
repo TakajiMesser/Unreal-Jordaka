@@ -2,26 +2,26 @@
 
 #include "UnrealJordakaPlayerState.h"
 #include "Abilities/UnrealJordakaAbilitySystemComponent.h"
-#include "Abilities/Attributes/UnrealJordakaAttributeSet.h"
+#include "Abilities/Attributes/UnrealJordakaHealthAttributeSet.h"
 #include "UnrealJordakaPlayerController.h"
 
 AUnrealJordakaPlayerState::AUnrealJordakaPlayerState()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UUnrealJordakaAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	AbilitySystemComponent->SetIsReplicated(true);
-	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+    AbilitySystemComponent = CreateDefaultSubobject<UUnrealJordakaAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+    AbilitySystemComponent->SetIsReplicated(true);
+    AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
-	AttributeSet = CreateDefaultSubobject<UUnrealJordakaAttributeSet>(TEXT("AttributeSet"));
-	
-	NetUpdateFrequency = 100.0f;
+    HealthAttributeSet = CreateDefaultSubobject<UUnrealJordakaHealthAttributeSet>(TEXT("HealthAttributeSet"));
+    
+    NetUpdateFrequency = 100.0f;
 }
 
 UAbilitySystemComponent* AUnrealJordakaPlayerState::GetAbilitySystemComponent() const
 {
-	return AbilitySystemComponent;
+    return AbilitySystemComponent;
 }
 
-UUnrealJordakaAttributeSet* AUnrealJordakaPlayerState::GetAttributeSet() const
+UUnrealJordakaHealthAttributeSet* AUnrealJordakaPlayerState::GetHealthAttributeSet() const
 {
-	return AttributeSet;
+    return HealthAttributeSet;
 }

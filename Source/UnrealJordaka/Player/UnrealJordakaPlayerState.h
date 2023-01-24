@@ -8,7 +8,7 @@
 #include "UnrealJordakaPlayerState.generated.h"
 
 class UUnrealJordakaAbilitySystemComponent;
-class UUnrealJordakaAttributeSet;
+class UUnrealJordakaHealthAttributeSet;
 
 UCLASS()
 class AUnrealJordakaPlayerState : public APlayerState, public IAbilitySystemInterface
@@ -20,13 +20,13 @@ public:
 
     UUnrealJordakaAbilitySystemComponent* GetUnrealJordakaAbilitySystemComponent() const { return AbilitySystemComponent; }
     UAbilitySystemComponent* GetAbilitySystemComponent() const override;
-    UUnrealJordakaAttributeSet* GetAttributeSet() const;
+    UUnrealJordakaHealthAttributeSet* GetHealthAttributeSet() const;
 
 private:
-	UPROPERTY()
-	UUnrealJordakaAbilitySystemComponent* AbilitySystemComponent;
+    UPROPERTY()
+    UUnrealJordakaAbilitySystemComponent* AbilitySystemComponent;
 
-	UPROPERTY()
-	UUnrealJordakaAttributeSet* AttributeSet;
+    UPROPERTY()
+    UUnrealJordakaHealthAttributeSet* HealthAttributeSet;
     
 };

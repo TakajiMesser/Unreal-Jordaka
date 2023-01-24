@@ -9,5 +9,5 @@ UUnrealJordakaAttributeSet::UUnrealJordakaAttributeSet()
 
 UUnrealJordakaAbilitySystemComponent* UUnrealJordakaAttributeSet::GetAbilitySystemComponent() const
 {
-	return Cast<UUnrealJordakaAbilitySystemComponent>(GetOwningAbilitySystemComponent());
+    return Cast<UUnrealJordakaAbilitySystemComponent>(GetOwningAbilitySystemComponent());
 }
