@@ -14,6 +14,3 @@ class AUnrealJordakaGameMode : public AGameModeBase
 public:
     AUnrealJordakaGameMode();
 };
-
-
-
