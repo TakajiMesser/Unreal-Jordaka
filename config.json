@@ -1,0 +1,6 @@
+{
+    "projectName": "UnrealJordaka",
+    "unrealVersionSelectorPath": "C:\\Program Files (x86)\\Epic Games\\Launcher\\Engine\\Binaries\\Win64\\UnrealVersionSelector.exe",
+    "unrealBuildToolPath": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Binaries\\DotNET\\UnrealBuildTool\\UnrealBuildTool.exe",
+    "replaceTabs": true
+}
