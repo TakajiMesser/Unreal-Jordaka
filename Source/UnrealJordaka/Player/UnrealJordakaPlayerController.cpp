@@ -9,11 +9,22 @@
 #include "Engine/World.h"
 
 AUnrealJordakaPlayerController::AUnrealJordakaPlayerController()
+    : bInputPressed(false)
+    , bIsTouch(false)
+    , bIsSprintPressed(false)
+    , bIsSneakPressed(false)
+    , FollowTime(0.0f)
+    , UpValue(0.0f)
+    , RightValue(0.0f)
+    , ZoomValue(1.0f)
 {
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
-    bIsSprintPressed = false;
-    bIsSneakPressed = false;
+}
+
+float AUnrealJordakaPlayerController::GetZoomValue()
+{
+    return ZoomValue;
 }
 
 void AUnrealJordakaPlayerController::PlayerTick(float DeltaTime)
@@ -107,7 +118,10 @@ void AUnrealJordakaPlayerController::SetupInputComponent()
     InputComponent->BindAction("Sneak", IE_Pressed, this, &AUnrealJordakaPlayerController::OnSneakPressed);
     InputComponent->BindAction("Sneak", IE_Released, this, &AUnrealJordakaPlayerController::OnSneakReleased);
 
-    // support touch devices 
+    InputComponent->BindAction("ZoomIn", IE_Pressed, this, &AUnrealJordakaPlayerController::OnZoomIn);
+    InputComponent->BindAction("ZoomOut", IE_Pressed, this, &AUnrealJordakaPlayerController::OnZoomOut);
+
+    // support touch devices
     InputComponent->BindTouch(EInputEvent::IE_Pressed, this, &AUnrealJordakaPlayerController::OnTouchPressed);
     InputComponent->BindTouch(EInputEvent::IE_Released, this, &AUnrealJordakaPlayerController::OnTouchReleased);
 }
@@ -168,6 +182,16 @@ void AUnrealJordakaPlayerController::OnSneakPressed()
 void AUnrealJordakaPlayerController::OnSneakReleased()
 {
     bIsSneakPressed = false;
+}
+
+void AUnrealJordakaPlayerController::OnZoomIn()
+{
+    ZoomValue = FMath::Clamp(ZoomValue - 0.1f, 0.0f, 1.0f);
+}
+
+void AUnrealJordakaPlayerController::OnZoomOut()
+{
+    ZoomValue = FMath::Clamp(ZoomValue + 0.1f, 0.0f, 1.0f);
 }
 
 void AUnrealJordakaPlayerController::OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location)

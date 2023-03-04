@@ -18,6 +18,8 @@ class AUnrealJordakaPlayerController : public APlayerController
 public:
     AUnrealJordakaPlayerController();
 
+    float GetZoomValue();
+
     /** Time Threshold to know if it was a short press */
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
     float ShortPressThreshold;
@@ -49,6 +51,9 @@ protected:
     void OnSneakPressed();
     void OnSneakReleased();
 
+    void OnZoomIn();
+    void OnZoomOut();
+
     void OnTouchPressed(const ETouchIndex::Type FingerIndex, const FVector Location);
     void OnTouchReleased(const ETouchIndex::Type FingerIndex, const FVector Location);
 
@@ -62,6 +67,7 @@ private:
     float FollowTime; // For how long it has been pressed
     float UpValue;
     float RightValue;
+    float ZoomValue;
     
 };
 
