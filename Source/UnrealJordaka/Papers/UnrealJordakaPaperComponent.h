@@ -42,20 +42,5 @@ private:
 
     UPROPERTY(VisibleDefaultsOnly)
     UPaperFlipbookComponent* IdleFrontFlipbook;
-
-    UPROPERTY(VisibleDefaultsOnly)
-    UPaperFlipbookComponent* IdleBackFlipbook;
-
-    UPROPERTY(VisibleDefaultsOnly)
-    UPaperFlipbookComponent* IdleRightFlipbook;
-
-    UPROPERTY(VisibleDefaultsOnly)
-    UPaperFlipbookComponent* WalkFrontFlipbook;
-
-    UPROPERTY(VisibleDefaultsOnly)
-    UPaperFlipbookComponent* WalkBackFlipbook;
-
-    UPROPERTY(VisibleDefaultsOnly)
-    UPaperFlipbookComponent* WalkRightFlipbook;
 };
 

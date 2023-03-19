@@ -9,6 +9,9 @@ UUnrealJordakaPaperComponent::UUnrealJordakaPaperComponent()
 }
 
 UPaperFlipbookComponent* UUnrealJordakaPaperComponent::GetFlipbook(EUnrealJordakaStance stance, EUnrealJordakaDirection direction)
+{
+    return nullptr;
+}
 
 UPaperFlipbookComponent* UUnrealJordakaPaperComponent::CreateFlipbook(const TCHAR* name, const TCHAR* assetPath)
 {
